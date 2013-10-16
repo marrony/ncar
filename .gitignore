@@ -1,0 +1,10 @@
+Library
+Temp
+*.pidb
+*.sln
+*.userprefs
+*.csproj
+*.unityproj
+*.orig
+Thumbs.db
+
