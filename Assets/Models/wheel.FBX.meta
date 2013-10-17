@@ -4,10 +4,20 @@ ModelImporter:
   serializedVersion: 15
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Rectangle002
+    100004: Shape001
     400000: //RootNode
+    400002: Rectangle002
+    400004: Shape001
     2300000: //RootNode
+    2300002: Rectangle002
+    2300004: Shape001
     3300000: //RootNode
+    3300002: Rectangle002
+    3300004: Shape001
     4300000: Cylinder001
+    4300002: Rectangle002
+    4300004: Shape001
     9500000: //RootNode
   materials:
     importMaterials: 1
