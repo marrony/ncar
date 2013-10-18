@@ -23,8 +23,7 @@ public class WheelAlignment : MonoBehaviour {
 		// now set the wheel rotation to the rotation of the collider combined with a new rotation value. This new value
 		// is the rotation around the axle, and the rotation from steering input.
 		transform.rotation = CorrespondingCollider.transform.rotation * 
-			Quaternion.Euler( RotationValue, CorrespondingCollider.steerAngle, 0 ) *
-			Quaternion.Euler(0, 90, 0);
+			Quaternion.Euler( RotationValue, CorrespondingCollider.steerAngle, 0 );
 		
 		// increase the rotation value by the rotation speed (in degrees per second)
 		RotationValue += CorrespondingCollider.rpm * ( 360/60 ) * Time.deltaTime;

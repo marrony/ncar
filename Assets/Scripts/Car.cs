@@ -35,8 +35,8 @@ public class Car : MonoBehaviour {
 		*/
 
 		var motorTorque = EngineTorque / GearRatio[CurrentGear] * Input.GetAxis("Vertical");
-		RearLeftWheel.motorTorque = -motorTorque;
-		RearRightWheel.motorTorque = -motorTorque;
+		RearLeftWheel.motorTorque = motorTorque;
+		RearRightWheel.motorTorque = motorTorque;
 
 		FrontLeftWheel.steerAngle = 20 * Input.GetAxis("Horizontal");
 		FrontRightWheel.steerAngle = 20 * Input.GetAxis("Horizontal");
