@@ -25,7 +25,7 @@ public class Car : MonoBehaviour {
 	void Update () {
 		rigidbody.drag = rigidbody.velocity.magnitude / 250;
 		
-		EngineRPM = (FrontLeftWheel.rpm + FrontRightWheel.rpm)/2 * GearRatio[CurrentGear];
+		EngineRPM = (RearLeftWheel.rpm + RearRightWheel.rpm)/2 * GearRatio[CurrentGear];
 		ShiftGears();
 	
 		/*
@@ -37,9 +37,13 @@ public class Car : MonoBehaviour {
 		var motorTorque = EngineTorque / GearRatio[CurrentGear] * Input.GetAxis("Vertical");
 		RearLeftWheel.motorTorque = motorTorque;
 		RearRightWheel.motorTorque = motorTorque;
-
-		FrontLeftWheel.steerAngle = 20 * Input.GetAxis("Horizontal");
-		FrontRightWheel.steerAngle = 20 * Input.GetAxis("Horizontal");
+		
+		var steerAngle = 20 - (int) (rigidbody.velocity.magnitude * 0.25f);
+		if(steerAngle <= 5)
+			steerAngle = 5;
+				
+		FrontLeftWheel.steerAngle = steerAngle * Input.GetAxis("Horizontal");
+		FrontRightWheel.steerAngle = steerAngle * Input.GetAxis("Horizontal");
 	}
 	
 	private void ShiftGears() {
