@@ -25,7 +25,7 @@ public class Car : MonoBehaviour {
 	void Update () {
 		rigidbody.drag = rigidbody.velocity.magnitude / 250;
 		
-		EngineRPM = (RearLeftWheel.rpm + RearRightWheel.rpm)/2 * GearRatio[CurrentGear];
+		EngineRPM = (RearLeftWheel.rpm + RearRightWheel.rpm) * GearRatio[CurrentGear];
 		ShiftGears();
 	
 		/*
@@ -34,12 +34,16 @@ public class Car : MonoBehaviour {
 			audio.pitch = 2.0;
 		*/
 
-		var motorTorque = EngineTorque / GearRatio[CurrentGear] * Input.GetAxis("Vertical");
+		var motorTorque = EngineTorque * Input.GetAxis("Vertical") - (CurrentGear * EngineTorque * .1f) ;
+		
+		if(Mathf.Abs(EngineRPM) > MaxEngineRPM + 100)
+			motorTorque = 0;	
+		
 		RearLeftWheel.motorTorque = motorTorque;
 		RearRightWheel.motorTorque = motorTorque;
 		
-		var steerAngle = 20 - (int) (rigidbody.velocity.magnitude * 0.25f);
-		if(steerAngle <= 5)
+		var steerAngle = 20 - (int) (rigidbody.velocity.magnitude * 0.2f);
+		if(steerAngle < 5)
 			steerAngle = 5;
 				
 		FrontLeftWheel.steerAngle = steerAngle * Input.GetAxis("Horizontal");
@@ -51,7 +55,7 @@ public class Car : MonoBehaviour {
 			int AppropriateGear = CurrentGear;
 			
 			for (int i = 0; i < GearRatio.Length; i ++ ) {
-				if ( FrontLeftWheel.rpm * GearRatio[i] < MaxEngineRPM ) {
+				if ( (RearRightWheel.rpm + RearLeftWheel.rpm) * GearRatio[i] < MaxEngineRPM ) {
 					AppropriateGear = i;
 					break;
 				}
@@ -64,7 +68,7 @@ public class Car : MonoBehaviour {
 			int AppropriateGear = CurrentGear;
 			
 			for (int j = GearRatio.Length-1; j >= 0; j -- ) {
-				if ( FrontLeftWheel.rpm * GearRatio[j] > MinEngineRPM ) {
+				if ( (RearRightWheel.rpm + RearLeftWheel.rpm) * GearRatio[j] > MinEngineRPM ) {
 					AppropriateGear = j;
 					break;
 				}
@@ -76,6 +80,8 @@ public class Car : MonoBehaviour {
 	
 	void OnGUI() {
 		GUI.Label(new Rect(10, 10, 100, 20), "KM/h: " + (rigidbody.velocity.magnitude * 3.6f));
+		GUI.Label(new Rect(10, 30, 100, 20), "RPM: " + (EngineRPM));
+		GUI.Label(new Rect(10, 50, 100, 20), "Gear: " + (CurrentGear));
 	}
 	
 } 
