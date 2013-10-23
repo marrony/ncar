@@ -17,10 +17,13 @@ public class Car : MonoBehaviour {
 	public float MaxEngineRPM = 3000.0f;
 	public float MinEngineRPM = 1000.0f;
 		
+	public AudioSource engineAudio;
+	public AudioSource windAudio;
+	
 	private float EngineRPM = 0.0f;
-	
 	private float time = 0;
-	
+	private float drag;
+
 	/*
 	 * motor:wheel
 	 * 1ª 3,596:1
@@ -50,11 +53,11 @@ public class Car : MonoBehaviour {
 		EngineRPM = EngineRPMForGear(CurrentGear);
 		ShiftGears();
 	
-		/*
-		audio.pitch = Mathf.Abs(EngineRPM / MaxEngineRPM) + 1.0 ;
-		if ( audio.pitch > 2.0 ) 
-			audio.pitch = 2.0;
-		*/
+		engineAudio.pitch = Mathf.Abs(EngineRPM / MaxEngineRPM) + 1.0f;
+		if (engineAudio.pitch > 2.0f) 
+			engineAudio.pitch = 2.0f;
+		
+		windAudio.volume = rigidbody.velocity.magnitude/400;
 		
 		var motorTorque = (EngineTorque) * Input.GetAxis("Vertical");
 		
@@ -75,7 +78,7 @@ public class Car : MonoBehaviour {
 		rigidbody.AddForce(-rigidbody.velocity.normalized * drag);
 	}
 	
-	float drag;
+	
 	
 	private float WheelRPM() {
 		return (RearLeftWheel.rpm + RearRightWheel.rpm) * 0.5f;
