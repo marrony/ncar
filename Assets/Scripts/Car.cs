@@ -32,21 +32,21 @@ public class Car : MonoBehaviour {
 	 */
 
 	void Start () {
-		//Transform cg = transform.FindChild("CG");
-		rigidbody.centerOfMass = new Vector3(0, -0.7f, 0);
-
+		Transform cg = transform.FindChild("CG");
+		rigidbody.centerOfMass = cg.localPosition;
+		
+		/*
 		float x = rigidbody.inertiaTensor.x;
 		float y = rigidbody.inertiaTensor.y;
 		float z = rigidbody.inertiaTensor.z;
 		
 		rigidbody.inertiaTensor = new Vector3(z, x, y);
+		*/
 	}
 
 	void Update () {
 		time += Time.deltaTime;
-		
-		rigidbody.drag = rigidbody.velocity.magnitude / 150f;
-		
+
 		EngineRPM = EngineRPMForGear(CurrentGear);
 		ShiftGears();
 	
@@ -65,6 +65,17 @@ public class Car : MonoBehaviour {
 		FrontLeftWheel.steerAngle = steerAngle;
 		FrontRightWheel.steerAngle = steerAngle;
 	}
+	
+	void FixedUpdate() {
+		float v = rigidbody.velocity.magnitude;
+		float area = 3f;
+		float coefficient = 1.15f;
+		drag = 0.5f * 1.204f * v*v * coefficient * area;
+		
+		rigidbody.AddForce(-rigidbody.velocity.normalized * drag);
+	}
+	
+	float drag;
 	
 	private float WheelRPM() {
 		return (RearLeftWheel.rpm + RearRightWheel.rpm) * 0.5f;
@@ -114,8 +125,7 @@ public class Car : MonoBehaviour {
 		GUI.Label(new Rect(10, 110, 100, 20), "diff: " + (RearLeftWheel.rpm - RearRightWheel.rpm));
 		
 		GUI.Label(new Rect(10, 130, 100, 20), "time: " + time);
-		GUI.Label(new Rect(10, 150, 1000, 20), "time: " + (rigidbody.inertiaTensor));
-		 
+		GUI.Label(new Rect(10, 150, 1000, 20), "drag: " + drag);
 	}
 	
 } 
