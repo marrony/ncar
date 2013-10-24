@@ -52,14 +52,16 @@ public class Car : MonoBehaviour {
 
 		EngineRPM = EngineRPMForGear(CurrentGear);
 		ShiftGears();
+		
+		float engineRpmAbs = Mathf.Abs(EngineRPM);
 	
-		engineAudio.pitch = Mathf.Abs(EngineRPM / MaxEngineRPM) + 1.0f;
-		if (engineAudio.pitch > 2.0f) 
-			engineAudio.pitch = 2.0f;
+		engineAudio.pitch = Mathf.Min((engineRpmAbs / MaxEngineRPM) + 0.5f, 2.0f);
 		
 		windAudio.volume = rigidbody.velocity.magnitude/400;
 		
-		var motorTorque = (EngineTorque) * Input.GetAxis("Vertical");
+		var motorTorque = engineRpmAbs < MaxEngineRPM
+					? EngineTorque * Input.GetAxis("Vertical")
+					: 0;
 		
 		RearLeftWheel.motorTorque = motorTorque;
 		RearRightWheel.motorTorque = motorTorque;
@@ -85,7 +87,8 @@ public class Car : MonoBehaviour {
 	}
 	
 	private float EngineRPMForGear(int gear) {
-		float ratio = Input.GetAxis("Vertical") >= 0 ? GearRatio[gear] : ReverseGearRatio;
+		float wheelRpm = WheelRPM();
+		float ratio = wheelRpm >= 0 ? GearRatio[gear] : ReverseGearRatio;
 		
 		return WheelRPM() * ratio * DifferentialRatio;
 	}
