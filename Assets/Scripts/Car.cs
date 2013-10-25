@@ -66,9 +66,12 @@ public class Car : MonoBehaviour {
 		RearLeftWheel.motorTorque = motorTorque;
 		RearRightWheel.motorTorque = motorTorque;
 		
-		var steerAngle = 20 * Input.GetAxis("Horizontal");
+		float v = rigidbody.velocity.magnitude/50f;
+		
+		var steerAngle = Mathf.Max(1f - v, 0.01f) * 18 * Input.GetAxis("Horizontal");
 		FrontLeftWheel.steerAngle = steerAngle;
 		FrontRightWheel.steerAngle = steerAngle;
+		rigidbody.AddForce(Vector3.down * rigidbody.mass * 9.8f * v);
 	}
 	
 	void FixedUpdate() {
@@ -77,7 +80,7 @@ public class Car : MonoBehaviour {
 		float coefficient = 1.15f;
 		drag = 0.5f * 1.204f * v*v * coefficient * area;
 		
-		rigidbody.AddForce(-rigidbody.velocity.normalized * drag);
+		//rigidbody.AddForce(-rigidbody.velocity.normalized * drag);
 	}
 	
 	
@@ -123,7 +126,7 @@ public class Car : MonoBehaviour {
 	
 	void OnGUI() {
 		GUI.Label(new Rect(10, 10, 100, 20), "KM/h: " + (rigidbody.velocity.magnitude * 3.6f));
-		GUI.Label(new Rect(10, 30, 100, 20), "RPM: " + (EngineRPM));
+		GUI.Label(new Rect(10, 30, 100, 20), "RPM: " + (FrontLeftWheel.steerAngle));
 		GUI.Label(new Rect(10, 50, 100, 20), "Gear: " + (CurrentGear + 1));
 		
 		GUI.Label(new Rect(10, 70, 100, 20), "RPM: " + RearLeftWheel.rpm);
