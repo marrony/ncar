@@ -72,6 +72,12 @@ public class Car : MonoBehaviour {
 		var steerAngle = Mathf.Max(1f - v, 0.01f) * 18 * Input.GetAxis("Horizontal");
 		FrontLeftWheel.steerAngle = steerAngle;
 		FrontRightWheel.steerAngle = steerAngle;
+		
+		debugWHeel(FrontLeftWheel);
+		debugWHeel(FrontRightWheel);
+		debugWHeel(RearLeftWheel);
+		debugWHeel(RearRightWheel);
+		
 	}
 
 	void FixedUpdate() {
@@ -143,6 +149,13 @@ public class Car : MonoBehaviour {
 		
 		GUI.Label(new Rect(10, 130, 100, 20), "time: " + time);
 		GUI.Label(new Rect(10, 150, 1000, 20), "dowforce (Kg): " + (dowforce/9.8f));
+	}
+	
+	private void debugWHeel(WheelCollider w) {
+		WheelHit h;
+		if (w.GetGroundHit(out h)) {
+			Debug.DrawLine(h.point, h.point + new Vector3(0, h.force * 0.0004f, 0));
+		}
 	}
 	
 } 
