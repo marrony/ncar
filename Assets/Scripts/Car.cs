@@ -23,7 +23,8 @@ public class Car : MonoBehaviour {
 	private float EngineRPM = 0.0f;
 	private float time = 0;
 	private float drag;
-
+	private float dowforce;
+	
 	/*
 	 * motor:wheel
 	 * 1ª 3,596:1
@@ -66,25 +67,21 @@ public class Car : MonoBehaviour {
 		RearLeftWheel.motorTorque = motorTorque;
 		RearRightWheel.motorTorque = motorTorque;
 		
-		float v = rigidbody.velocity.magnitude/50f;
+		float v = rigidbody.velocity.magnitude/60f;
 		
 		var steerAngle = Mathf.Max(1f - v, 0.01f) * 18 * Input.GetAxis("Horizontal");
 		FrontLeftWheel.steerAngle = steerAngle;
 		FrontRightWheel.steerAngle = steerAngle;
-		rigidbody.AddForce(Vector3.down * rigidbody.mass * 9.8f * v);
 	}
-	
+
 	void FixedUpdate() {
-		float v = rigidbody.velocity.magnitude;
-		float area = 3f;
-		float coefficient = 1.15f;
-		drag = 0.5f * 1.204f * v*v * coefficient * area;
+		drag = calculateDrag(rigidbody.velocity.magnitude);
+		rigidbody.AddForce(-rigidbody.velocity.normalized * drag);
 		
-		//rigidbody.AddForce(-rigidbody.velocity.normalized * drag);
+		dowforce = calculateDownforce(rigidbody.velocity.magnitude, 4, 15 * Mathf.Deg2Rad);
+		rigidbody.AddRelativeForce(new Vector3(0, -dowforce, 0));
 	}
-	
-	
-	
+
 	private float WheelRPM() {
 		return (RearLeftWheel.rpm + RearRightWheel.rpm) * 0.5f;
 	}
@@ -124,6 +121,17 @@ public class Car : MonoBehaviour {
 		}
 	}
 	
+	private static float calculateDrag (float v) {
+		float area = 3f;
+		float coefficient = 1.15f;
+		return 0.5f * 1.204f * v*v * coefficient * area;
+	}
+	
+	private static float calculateDownforce (float v, float wingArea, float angleOfAttack) {
+		float airDensity = 1.1f;
+		return 0.5f * wingArea * angleOfAttack * airDensity * v*v;
+	}
+	
 	void OnGUI() {
 		GUI.Label(new Rect(10, 10, 100, 20), "KM/h: " + (rigidbody.velocity.magnitude * 3.6f));
 		GUI.Label(new Rect(10, 30, 100, 20), "RPM: " + (FrontLeftWheel.steerAngle));
@@ -134,7 +142,7 @@ public class Car : MonoBehaviour {
 		GUI.Label(new Rect(10, 110, 100, 20), "diff: " + (RearLeftWheel.rpm - RearRightWheel.rpm));
 		
 		GUI.Label(new Rect(10, 130, 100, 20), "time: " + time);
-		GUI.Label(new Rect(10, 150, 1000, 20), "drag: " + drag);
+		GUI.Label(new Rect(10, 150, 1000, 20), "dowforce (Kg): " + (dowforce/9.8f));
 	}
 	
 } 
