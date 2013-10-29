@@ -2819,7 +2819,7 @@ MeshCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_SmoothSphereCollisions: 0
-  m_Convex: 0
+  m_Convex: 1
   m_Mesh: {fileID: 4300000, guid: cde35b161689d604caede36d15ef1b46, type: 3}
 --- !u!82 &8200000
 AudioSource:
@@ -3006,8 +3006,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slipPrefab: {fileID: 100000, guid: f18c639831c0694488126061d7018f53, type: 2}
   model: {fileID: 100020}
-  stressThreshold: 120000
-  stressTolerance: 100
+  stressThreshold: 140000
+  stressTolerance: 50000
 --- !u!114 &11400016
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3021,8 +3021,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slipPrefab: {fileID: 100000, guid: f18c639831c0694488126061d7018f53, type: 2}
   model: {fileID: 100000}
-  stressThreshold: 120000
-  stressTolerance: 100
+  stressThreshold: 140000
+  stressTolerance: 50000
 --- !u!114 &11400018
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3036,8 +3036,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slipPrefab: {fileID: 100000, guid: f18c639831c0694488126061d7018f53, type: 2}
   model: {fileID: 100022}
-  stressThreshold: 120000
-  stressTolerance: 100
+  stressThreshold: 130000
+  stressTolerance: 50000
 --- !u!114 &11400020
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3051,8 +3051,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slipPrefab: {fileID: 100000, guid: f18c639831c0694488126061d7018f53, type: 2}
   model: {fileID: 100024}
-  stressThreshold: 120000
-  stressTolerance: 100
+  stressThreshold: 130000
+  stressTolerance: 50000
 --- !u!146 &14600000
 WheelCollider:
   m_ObjectHideFlags: 1
