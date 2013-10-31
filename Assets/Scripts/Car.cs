@@ -38,14 +38,6 @@ public class Car : MonoBehaviour {
 	void Start () {
 		Transform cg = transform.FindChild("CG");
 		rigidbody.centerOfMass = cg.localPosition;
-		
-		/*
-		float x = rigidbody.inertiaTensor.x;
-		float y = rigidbody.inertiaTensor.y;
-		float z = rigidbody.inertiaTensor.z;
-		
-		rigidbody.inertiaTensor = new Vector3(z, x, y);
-		*/
 	}
 
 	void Update () {
