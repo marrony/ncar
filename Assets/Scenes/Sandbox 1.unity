@@ -2016,7 +2016,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 1041333937}
-  maverick: {fileID: 100004, guid: d427f03497b149e46b11ac80318e4b19, type: 2}
+  maverick: {fileID: 100128, guid: 900c005d6c6a0134ab897f6bd994f565, type: 2}
 --- !u!4 &1765700290
 Transform:
   m_ObjectHideFlags: 0
