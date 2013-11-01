@@ -20,6 +20,8 @@ public class Car : MonoBehaviour {
 	public AudioSource engineAudio;
 	public AudioSource windAudio;
 	
+	public Material rearLight;
+	
 	private float EngineRPM = 0.0f;
 	private float time = 0;
 	private float drag;
@@ -54,25 +56,27 @@ public class Car : MonoBehaviour {
 		
 		var verticalAxis = Input.GetAxis("Vertical");
 		
-		if(engineRpmAbs < MaxEngineRPM && verticalAxis > 0) {
+		if(engineRpmAbs < MaxEngineRPM && verticalAxis >= 0) {
 			var motorTorque = EngineTorque * verticalAxis;
 			
 			RearLeftWheel.motorTorque = motorTorque;
 			RearRightWheel.motorTorque = motorTorque;
+			
+			if(rearLight != null) {
+				//rearLight.SetColor("_Color", new Color(0.5f, 0f, 0f));
+				rearLight.SetFloat("_Shininess", 1f);
+			}
 		}
 		
-		if(verticalAxis <= 0) {
+		if(verticalAxis < 0) {
 			var brakeTorque = EngineTorque * 10 * -verticalAxis;
 			
 			RearLeftWheel.brakeTorque = brakeTorque;
 			RearRightWheel.brakeTorque = brakeTorque;
 			
-			foreach(MeshRenderer shader in GetComponentsInChildren<MeshRenderer>()) {
-				foreach(Material material in shader.materials) {
-					if(material.name == "vehiclelights3 (Instance)") {
-						material.SetColor("_Color", Color.blue);
-					}
-				}
+			if(rearLight != null) {
+				//rearLight.SetColor("_Color", new Color(1f, 0f, 0f));
+				rearLight.SetFloat("_Shininess", 0.01f);
 			}
 		}
 		

@@ -1257,6 +1257,10 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400002, guid: d427f03497b149e46b11ac80318e4b19, type: 2}
+      propertyPath: rearLight
+      value: 
+      objectReference: {fileID: 2100000, guid: cf3a836425a60684b9a6a083abcc9275, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d427f03497b149e46b11ac80318e4b19, type: 2}
   m_RootGameObject: {fileID: 728882816}
@@ -1372,6 +1376,7 @@ MonoBehaviour:
   MinEngineRPM: 2200
   engineAudio: {fileID: 578394429}
   windAudio: {fileID: 514770115}
+  rearLight: {fileID: 2100000, guid: cf3a836425a60684b9a6a083abcc9275, type: 2}
 --- !u!1 &764691141
 GameObject:
   m_ObjectHideFlags: 0
