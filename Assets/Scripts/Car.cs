@@ -52,12 +52,29 @@ public class Car : MonoBehaviour {
 		
 		windAudio.volume = rigidbody.velocity.magnitude/400;
 		
-		var motorTorque = engineRpmAbs < MaxEngineRPM
-					? EngineTorque * Input.GetAxis("Vertical")
-					: 0;
+		var verticalAxis = Input.GetAxis("Vertical");
 		
-		RearLeftWheel.motorTorque = motorTorque;
-		RearRightWheel.motorTorque = motorTorque;
+		if(engineRpmAbs < MaxEngineRPM && verticalAxis > 0) {
+			var motorTorque = EngineTorque * verticalAxis;
+			
+			RearLeftWheel.motorTorque = motorTorque;
+			RearRightWheel.motorTorque = motorTorque;
+		}
+		
+		if(verticalAxis <= 0) {
+			var brakeTorque = EngineTorque * 10 * -verticalAxis;
+			
+			RearLeftWheel.brakeTorque = brakeTorque;
+			RearRightWheel.brakeTorque = brakeTorque;
+			
+			foreach(MeshRenderer shader in GetComponentsInChildren<MeshRenderer>()) {
+				foreach(Material material in shader.materials) {
+					if(material.name == "vehiclelights3 (Instance)") {
+						material.SetColor("_Color", Color.blue);
+					}
+				}
+			}
+		}
 		
 		float v = rigidbody.velocity.magnitude/60f;
 		
