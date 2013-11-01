@@ -99,7 +99,7 @@ GameObject:
   - 4: {fileID: 11427968}
   - 114: {fileID: 11427969}
   m_Layer: 0
-  m_Name: Checkpoint
+  m_Name: 1 - Start Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -127,6 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 040e7605cac452e459eb2748f8936d95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  next: {fileID: 2100244854}
 --- !u!1 &20052269
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,7 +443,7 @@ GameObject:
   - 4: {fileID: 434854022}
   - 114: {fileID: 434854023}
   m_Layer: 0
-  m_Name: Checkpoint
+  m_Name: 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -470,6 +471,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 040e7605cac452e459eb2748f8936d95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  next: {fileID: 1765178949}
 --- !u!1001 &470712276
 Prefab:
   m_ObjectHideFlags: 0
@@ -703,7 +705,7 @@ GameObject:
   - 4: {fileID: 720766112}
   - 114: {fileID: 720766113}
   m_Layer: 0
-  m_Name: Checkpoint
+  m_Name: 7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -731,6 +733,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 040e7605cac452e459eb2748f8936d95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  next: {fileID: 11427969}
 --- !u!1001 &729680176
 Prefab:
   m_ObjectHideFlags: 0
@@ -1552,7 +1555,7 @@ GameObject:
   - 4: {fileID: 1237150055}
   - 114: {fileID: 1237150056}
   m_Layer: 0
-  m_Name: Checkpoint
+  m_Name: 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1580,6 +1583,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 040e7605cac452e459eb2748f8936d95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  next: {fileID: 1595903346}
 --- !u!1 &1343565381
 GameObject:
   m_ObjectHideFlags: 0
@@ -1822,7 +1826,7 @@ GameObject:
   - 4: {fileID: 1595903345}
   - 114: {fileID: 1595903346}
   m_Layer: 0
-  m_Name: Checkpoint
+  m_Name: 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1850,6 +1854,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 040e7605cac452e459eb2748f8936d95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  next: {fileID: 434854023}
 --- !u!1 &1709684401
 GameObject:
   m_ObjectHideFlags: 0
@@ -1960,7 +1965,7 @@ GameObject:
   - 4: {fileID: 1765178948}
   - 114: {fileID: 1765178949}
   m_Layer: 0
-  m_Name: Checkpoint
+  m_Name: 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1988,6 +1993,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 040e7605cac452e459eb2748f8936d95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  next: {fileID: 720766113}
 --- !u!1 &1765700288
 GameObject:
   m_ObjectHideFlags: 0
@@ -2017,6 +2023,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 1041333937}
   maverick: {fileID: 100128, guid: 900c005d6c6a0134ab897f6bd994f565, type: 2}
+  startLine: {fileID: 11427969}
 --- !u!4 &1765700290
 Transform:
   m_ObjectHideFlags: 0
@@ -2654,7 +2661,7 @@ GameObject:
   - 4: {fileID: 2100244853}
   - 114: {fileID: 2100244854}
   m_Layer: 0
-  m_Name: Checkpoint
+  m_Name: 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2682,3 +2689,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 040e7605cac452e459eb2748f8936d95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  next: {fileID: 1237150056}
