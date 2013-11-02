@@ -57,27 +57,17 @@ public class Car : MonoBehaviour {
 		var verticalAxis = Input.GetAxis("Vertical");
 		
 		if(engineRpmAbs < MaxEngineRPM && verticalAxis >= 0) {
-			var motorTorque = EngineTorque * verticalAxis;
-			
-			RearLeftWheel.motorTorque = motorTorque;
-			RearRightWheel.motorTorque = motorTorque;
-			
-			if(rearLight != null) {
-				//rearLight.SetColor("_Color", new Color(0.5f, 0f, 0f));
-				rearLight.SetFloat("_Shininess", 1f);
-			}
+			if(EngineRPM < 0)
+				Break(verticalAxis);
+			else
+				Accelerate(verticalAxis);
 		}
 		
-		if(verticalAxis < 0) {
-			var brakeTorque = EngineTorque * 10 * -verticalAxis;
-			
-			RearLeftWheel.brakeTorque = brakeTorque;
-			RearRightWheel.brakeTorque = brakeTorque;
-			
-			if(rearLight != null) {
-				//rearLight.SetColor("_Color", new Color(1f, 0f, 0f));
-				rearLight.SetFloat("_Shininess", 0.01f);
-			}
+		if(verticalAxis <= 0) {
+			if(EngineRPM > 0)
+				Break(-verticalAxis);
+			else
+				Accelerate(verticalAxis);
 		}
 		
 		float v = rigidbody.velocity.magnitude/60f;
@@ -85,6 +75,32 @@ public class Car : MonoBehaviour {
 		var steerAngle = Mathf.Max(1f - v, 0.02f) * 30 * Input.GetAxis("Horizontal");
 		FrontLeftWheel.steerAngle = steerAngle;
 		FrontRightWheel.steerAngle = steerAngle;
+	}
+	
+	void Accelerate(float verticalAxis) {
+		var motorTorque = EngineTorque * verticalAxis;
+		
+		RearLeftWheel.brakeTorque = 0;
+		RearRightWheel.brakeTorque = 0;
+		RearLeftWheel.motorTorque = motorTorque;
+		RearRightWheel.motorTorque = motorTorque;
+		
+		if(rearLight != null) {
+			//rearLight.SetColor("_Color", new Color(0.5f, 0f, 0f));
+			rearLight.SetFloat("_Shininess", 1f);
+		}
+	}
+	
+	void Break(float verticalAxis) {
+		var brakeTorque = EngineTorque * 10 * verticalAxis;
+		
+		RearLeftWheel.brakeTorque = brakeTorque;
+		RearRightWheel.brakeTorque = brakeTorque;
+		
+		if(rearLight != null) {
+			//rearLight.SetColor("_Color", new Color(1f, 0f, 0f));
+			rearLight.SetFloat("_Shininess", 0.01f);
+		}
 	}
 
 	void FixedUpdate() {
