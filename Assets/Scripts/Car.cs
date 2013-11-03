@@ -86,8 +86,8 @@ public class Car : MonoBehaviour {
 		RearRightWheel.motorTorque = motorTorque;
 		
 		if(rearLight != null) {
-			//rearLight.SetColor("_Color", new Color(0.5f, 0f, 0f));
-			rearLight.SetFloat("_Shininess", 1f);
+			rearLight.SetColor("_Color", new Color(0.1f, 0f, 0f));
+			//rearLight.SetFloat("_Shininess", 1f);
 		}
 	}
 	
@@ -97,9 +97,9 @@ public class Car : MonoBehaviour {
 		RearLeftWheel.brakeTorque = brakeTorque;
 		RearRightWheel.brakeTorque = brakeTorque;
 		
-		if(rearLight != null) {
-			//rearLight.SetColor("_Color", new Color(1f, 0f, 0f));
-			rearLight.SetFloat("_Shininess", 0.01f);
+		if(rearLight != null && brakeTorque > 0.5) {
+			rearLight.SetColor("_Color", new Color(1f, 0f, 0f));
+			//rearLight.SetFloat("_Shininess", 0.01f);
 		}
 	}
 

@@ -3433,6 +3433,7 @@ MonoBehaviour:
   MinEngineRPM: 2200
   engineAudio: {fileID: 8200000}
   windAudio: {fileID: 8200002}
+  rearLight: {fileID: 2100000, guid: cf3a836425a60684b9a6a083abcc9275, type: 2}
 --- !u!114 &11400012
 MonoBehaviour:
   m_ObjectHideFlags: 1
