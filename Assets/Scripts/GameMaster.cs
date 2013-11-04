@@ -7,25 +7,30 @@ public class GameMaster : MonoBehaviour {
 	public GameObject maverick;
 	public Checkpoint startLine;
 	
+	public event OnLapChangeEventHandler OnLapChange = delegate {};
+	
+	private GameObject playerCar;
 	private int lap = 0;
 
 	void Start () {
-		GameObject playerCar = Instantiate(maverick, 
+		playerCar = Instantiate(maverick, 
 			new Vector3(200, 2, 260), 
 			Quaternion.Euler(0, 230, 0)) as GameObject;
 		
 		mainCamera.target = playerCar.transform;
 		
 		startLine.WaitFor(playerCar);
-		startLine.OnCheckpointEnter += (gameObject) => { 
-			if (gameObject == playerCar)
-				lap++; 
-		};
+		startLine.OnCheckpointEnter += OnCheckpointEnter;
 	}
 	
-	void OnGUI() 
+	private void OnCheckpointEnter (GameObject gameObject)
 	{
-		GUI.Label(new Rect(Screen.width/2, 10, 80, 20), "Lap " + lap);
+		if (gameObject == playerCar) {
+			lap++; 
+			OnLapChange(lap);
+		}
 	}
-
+	
 }
+
+public delegate void OnLapChangeEventHandler(int newLap);

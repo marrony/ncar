@@ -1238,7 +1238,7 @@ Transform:
   m_PrefabParentObject: {fileID: 400000, guid: eec1a0e1bd683b145a0b2421e7ea5268, type: 2}
   m_PrefabInternal: {fileID: 322500550}
   m_GameObject: {fileID: 633383488}
-  m_LocalRotation: {x: -.629196763, y: .322663039, z: .322662979, w: .629196763}
+  m_LocalRotation: {x: -.629196823, y: .322663069, z: .322663009, w: .629196823}
   m_LocalPosition: {x: -6.95352173, y: .187340736, z: -2.04769897}
   m_LocalScale: {x: 1.30885124, y: 1.30885124, z: 1.308851}
   m_Children: []
@@ -2565,7 +2565,7 @@ Transform:
   m_PrefabParentObject: {fileID: 400000, guid: eec1a0e1bd683b145a0b2421e7ea5268, type: 2}
   m_PrefabInternal: {fileID: 470712276}
   m_GameObject: {fileID: 1180105302}
-  m_LocalRotation: {x: -.588590801, y: -.391868323, z: .391868412, w: .588590801}
+  m_LocalRotation: {x: -.58859086, y: -.391868383, z: .391868472, w: .58859086}
   m_LocalPosition: {x: -.570846558, y: .381058693, z: -3.85778809}
   m_LocalScale: {x: 1, y: 1, z: 1.64666891}
   m_Children: []
@@ -4616,6 +4616,46 @@ Prefab:
   m_RootGameObject: {fileID: 1856953331}
   m_IsPrefabParent: 0
   m_IsExploded: 1
+--- !u!1 &1979643862
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1979643864}
+  - 114: {fileID: 1979643863}
+  m_Layer: 0
+  m_Name: Game UI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1979643863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1979643862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a50441f8af22404e8f1b25f3d7257b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameMaster: {fileID: 1765700289}
+  font: {fileID: 12800000, guid: 8dbced43897f9b8468534db7b60a2423, type: 3}
+--- !u!4 &1979643864
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1979643862}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 191.525162, y: -11.977169, z: 171.211578}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
 --- !u!1 &2000633139
 GameObject:
   m_ObjectHideFlags: 0

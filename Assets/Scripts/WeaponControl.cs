@@ -11,7 +11,7 @@ public class WeaponControl : MonoBehaviour {
 		currentTime += Time.deltaTime;
 		
 		if(currentTime >= rateOfFire && Input.GetKey(KeyCode.LeftControl)){
-			GameObject newBullet = Instantiate(bullet, fireOrigin.position, fireOrigin.rotation) as GameObject;						
+			Instantiate(bullet, fireOrigin.position, fireOrigin.rotation);						
 			currentTime = 0;			
 		}
 	}
