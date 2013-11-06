@@ -9,9 +9,11 @@ public class GameMaster : MonoBehaviour {
 	
 	public event OnLapChangeEventHandler OnLapChange = delegate {};
 	public event OnBestLapEventHandler OnBestLap = delegate {};
+	public event OnRaceFinishesEventHandler OnRaceFinishes = delegate {};
 	
 	private GameObject playerCar;
 	private int lap = 0;
+	private int laps = 3;
 	private float lapBegin = 0;
 	private float bestLap = float.PositiveInfinity;
 
@@ -23,19 +25,28 @@ public class GameMaster : MonoBehaviour {
 		mainCamera.target = playerCar.transform;
 		
 		startLine.WaitFor(playerCar);
-		startLine.OnCheckpointEnter += OnCheckpointEnter;
+		startLine.OnCheckpointEnter += OnStartLineEnter;
 	}
 	
-	private void OnCheckpointEnter (GameObject gameObject)
+	private void OnStartLineEnter (GameObject gameObject)
 	{
-		if (gameObject == playerCar) {
-			calculeteLapTime();
+		if (gameObject == playerCar)
+			OnNewLap ();
+	}
+
+	private void OnNewLap ()
+	{
+		CalculeteLapTime();
+		
+		if (lap == laps) {
+			RaceFinished();
+		} else {
 			lap++;
 			OnLapChange(lap);
 		}
 	}
 	
-	private void calculeteLapTime ()
+	private void CalculeteLapTime ()
 	{
 		float lapTime = Time.realtimeSinceStartup - lapBegin;
 		if (lapTime < bestLap && lap > 0) {
@@ -44,7 +55,24 @@ public class GameMaster : MonoBehaviour {
 		}
 		lapBegin = Time.realtimeSinceStartup;
 	}
+	
+	private void RaceFinished() 
+	{
+		RaceResult result = new RaceResult(1);
+		OnRaceFinishes(result);
+	}
 }
 
 public delegate void OnLapChangeEventHandler(int newLap);
 public delegate void OnBestLapEventHandler(float bestLap);
+public delegate void OnRaceFinishesEventHandler(RaceResult result);
+
+public struct RaceResult 
+{
+	public readonly int playerPosition;
+	
+	public RaceResult(int playerPosition)
+	{
+		this.playerPosition = playerPosition;
+	}	
+}

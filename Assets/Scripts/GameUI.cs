@@ -9,11 +9,14 @@ public class GameUI : MonoBehaviour {
 		
 	private int lap;
 	private TimeSpan bestLap = TimeSpan.Zero;
+	private bool showRaceResult = false;
+	private RaceResult result;
 
 	private Rect hudRect;
 	private Rect lapRect;
 	private Rect bestLabelRect;
 	private Rect bestTimeRect;
+	private Rect resultRect;
 	private GUIStyle hudStyle;
 	private GUIStyle titleStyle;
 	private GUIStyle labelStyle;
@@ -29,11 +32,16 @@ public class GameUI : MonoBehaviour {
 			this.bestLap = TimeSpan.FromSeconds(bestLap);
 			bestTimeHighlight = 1;
 		};
+		gameMaster.OnRaceFinishes += (result) => {
+			showRaceResult = true;
+			this.result = result;
+		};
 		
 		hudRect = new Rect(Screen.width - 130, 10, 120, 85);
 		lapRect = new Rect(hudRect.x + 15, hudRect.y + 5, 80, 20);
 		bestLabelRect = new Rect(hudRect.x + 15, hudRect.y + 40, 80, 20);
 		bestTimeRect = new Rect(hudRect.x + 15, hudRect.y + 57, 80, 20);
+		resultRect = new Rect(Screen.width/2 - 50, 100, 100, 30);
 		
 		hudStyle = new GUIStyle();
 		hudStyle.normal.background = createFlatTexture(new Color(0, 0, 0, 0.4f));
@@ -67,6 +75,12 @@ public class GameUI : MonoBehaviour {
 		GUI.Label(lapRect, "Lap " + lap, titleStyle);
 		GUI.Label(bestLabelRect, "Best Lap", labelStyle);
 		GUI.Label(bestTimeRect, formatTimeSpan(bestLap), bestTimeStyle);
+		
+		if (showRaceResult) {
+			string message = result.playerPosition == 1 ? "You Win!" : "Game Over";
+			GUI.Label(resultRect, message, titleStyle);
+		}
+			
 	}
 	
 	private static Texture2D createFlatTexture(Color color) {
