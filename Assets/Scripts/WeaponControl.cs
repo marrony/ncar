@@ -6,6 +6,7 @@ public class WeaponControl : MonoBehaviour {
 	public GameObject bullet;
 	public float rateOfFire;
 	public ParticleSystem particles;
+	public AudioSource soundFX;
 	private float currentTime = 0;	
 		
 	void Update () {
@@ -13,10 +14,21 @@ public class WeaponControl : MonoBehaviour {
 		
 		if(currentTime >= rateOfFire && Input.GetKey(KeyCode.LeftControl)){
 			Instantiate(bullet, fireOrigin.position, fireOrigin.rotation);						
-			particles.Stop();
-			particles.Play();
+			
+			startParticles();
+			startSound();
+			
 			currentTime = 0;			
 		}
 	}
 	
+	private void startParticles(){
+		particles.Stop();
+		particles.Play();
+	}
+	
+	private void startSound(){
+		AudioSource fireSound = Instantiate(soundFX) as AudioSource;			
+		fireSound.Play();
+	}
 }
