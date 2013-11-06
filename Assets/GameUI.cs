@@ -18,11 +18,17 @@ public class GameUI : MonoBehaviour {
 	private GUIStyle titleStyle;
 	private GUIStyle labelStyle;
 	private GUIStyle valueStyle;
+	private GUIStyle bestTimeStyle;
+	
+	private float bestTimeHighlight = 0;
 
 	void Start () 
 	{
 		gameMaster.OnLapChange += (newLap) => lap = newLap;
-		gameMaster.OnBestLap += (bestLap) => this.bestLap = TimeSpan.FromSeconds(bestLap);
+		gameMaster.OnBestLap += (bestLap) => { 
+			this.bestLap = TimeSpan.FromSeconds(bestLap);
+			bestTimeHighlight = 1;
+		};
 		
 		hudRect = new Rect(Screen.width - 130, 10, 120, 85);
 		lapRect = new Rect(hudRect.x + 15, hudRect.y + 5, 80, 20);
@@ -43,6 +49,16 @@ public class GameUI : MonoBehaviour {
 		
 		valueStyle = new GUIStyle(titleStyle);
 		valueStyle.fontSize = 16;
+		
+		bestTimeStyle = new GUIStyle(valueStyle);
+	}
+	
+	void Update() 
+	{
+		if (bestTimeHighlight > 0) {
+			bestTimeHighlight -= Time.deltaTime * 0.8f;
+			bestTimeStyle.normal.textColor = Color.Lerp(valueStyle.normal.textColor, Color.red, bestTimeHighlight);
+		}
 	}
 	
 	void OnGUI() 
@@ -50,7 +66,7 @@ public class GameUI : MonoBehaviour {
 		GUI.Box(hudRect, GUIContent.none, hudStyle);
 		GUI.Label(lapRect, "Lap " + lap, titleStyle);
 		GUI.Label(bestLabelRect, "Best Lap", labelStyle);
-		GUI.Label(bestTimeRect, formatTimeSpan(bestLap), valueStyle);
+		GUI.Label(bestTimeRect, formatTimeSpan(bestLap), bestTimeStyle);
 	}
 	
 	private static Texture2D createFlatTexture(Color color) {
