@@ -26,6 +26,7 @@ public class Car : MonoBehaviour {
 	private float time = 0;
 	private float drag;
 	private float dowforce;
+	private bool wrecked = false;
 	
 	/*
 	 * motor:wheel
@@ -41,8 +42,23 @@ public class Car : MonoBehaviour {
 		Transform cg = transform.FindChild("CG");
 		rigidbody.centerOfMass = cg.localPosition;
 	}
-
+	
+	private void DisableCar(){
+		Accelerate(0);
+		RearLeftWheel.brakeTorque = 65;
+		RearRightWheel.brakeTorque = 65;
+		FrontLeftWheel.brakeTorque = 65;
+		FrontRightWheel.brakeTorque = 65;
+		engineAudio.Stop();
+		windAudio.Stop();
+	}
+	
 	void Update () {
+		if(wrecked){
+			DisableCar();
+			return;
+		}
+		
 		time += Time.deltaTime;
 
 		EngineRPM = EngineRPMForGear(CurrentGear);
@@ -75,6 +91,10 @@ public class Car : MonoBehaviour {
 		var steerAngle = Mathf.Max(1f - v, 0.02f) * 30 * Input.GetAxis("Horizontal");
 		FrontLeftWheel.steerAngle = steerAngle;
 		FrontRightWheel.steerAngle = steerAngle;
+	}
+	
+	public void Wreck(){
+		wrecked = true;		
 	}
 	
 	void Accelerate(float verticalAxis) {

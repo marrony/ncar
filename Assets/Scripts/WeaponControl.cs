@@ -7,9 +7,13 @@ public class WeaponControl : MonoBehaviour {
 	public float rateOfFire;
 	public ParticleSystem particles;
 	public AudioSource soundFX;
-	private float currentTime = 0;	
+	private float currentTime = 0;
+	private bool wrecked = false;
 		
 	void Update () {
+		if(wrecked)
+			return; 
+		
 		currentTime += Time.deltaTime;
 		
 		if(currentTime >= rateOfFire && Input.GetKey(KeyCode.LeftControl)){
@@ -20,6 +24,10 @@ public class WeaponControl : MonoBehaviour {
 			
 			currentTime = 0;			
 		}
+	}
+	
+	public void Wreck(){
+		wrecked = true;
 	}
 	
 	private void startParticles(){

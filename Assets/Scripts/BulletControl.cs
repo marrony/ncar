@@ -3,6 +3,7 @@ using System.Collections;
 
 public class BulletControl : MonoBehaviour {
 	public float velocity;	
+	public float damage;
 	
 	// Update is called once per frame
 	void Update () {		
@@ -11,5 +12,17 @@ public class BulletControl : MonoBehaviour {
 	
 	void OnTriggerEnter (Collider other) {
 		DestroyObject(gameObject);
+		
+		CarDamage carDamage = findRootGameObject(other.gameObject).GetComponent<CarDamage>();		
+		if(carDamage == null)
+			return;
+				
+		carDamage.Inflict(damage);		
+	}
+	
+	private GameObject findRootGameObject(GameObject obj){				
+		if(obj.transform.parent != null)
+			return findRootGameObject(obj.transform.parent.gameObject);
+		return obj;
 	}
 }
