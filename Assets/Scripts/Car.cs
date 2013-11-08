@@ -88,7 +88,7 @@ public class Car : MonoBehaviour {
 		
 		float v = rigidbody.velocity.magnitude/60f;
 		
-		var steerAngle = Mathf.Max(1f - v, 0.02f) * 30 * Input.GetAxis("Horizontal");
+		var steerAngle = Mathf.Max(1f - v, 0.01f) * 26 * Input.GetAxis("Horizontal");
 		FrontLeftWheel.steerAngle = steerAngle;
 		FrontRightWheel.steerAngle = steerAngle;
 	}

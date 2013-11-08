@@ -53,7 +53,7 @@ public class Wheel : MonoBehaviour {
 		WheelHit CorrespondingGroundHit ;
 		wheelCollider.GetGroundHit(out CorrespondingGroundHit);
 		
-		if (Mathf.Abs( CorrespondingGroundHit.sidewaysSlip) > 2.0f) {
+		if (Mathf.Abs( CorrespondingGroundHit.sidewaysSlip) > 5.0f) {
 			if (slipPrefab) {
 				Instantiate(slipPrefab, CorrespondingGroundHit.point, Quaternion.identity);
 			}
