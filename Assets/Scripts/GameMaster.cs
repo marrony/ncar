@@ -17,15 +17,33 @@ public class GameMaster : MonoBehaviour {
 	private float lapBegin = 0;
 	private float bestLap = float.PositiveInfinity;
 
-	void Start () {
+	void Start () 
+	{
+		CreatePlayerCar();
+		CreateIACars();
+	}
+
+	private void CreatePlayerCar ()
+	{
 		playerCar = Instantiate(maverick, 
 			new Vector3(200, 2, 260), 
 			Quaternion.Euler(0, 230, 0)) as GameObject;
+		
+		playerCar.AddComponent<PlayerDriver>();
 		
 		mainCamera.target = playerCar.transform;
 		
 		startLine.WaitFor(playerCar);
 		startLine.OnCheckpointEnter += OnStartLineEnter;
+	}
+	
+	private void CreateIACars ()
+	{
+		GameObject car = Instantiate(maverick, 
+			new Vector3(204, 2, 260), 
+			Quaternion.Euler(0, 230, 0)) as GameObject;
+		
+		car.AddComponent<IADriver>();
 	}
 	
 	private void OnStartLineEnter (GameObject gameObject)

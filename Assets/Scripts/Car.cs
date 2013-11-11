@@ -23,11 +23,19 @@ public class Car : MonoBehaviour {
 	public Material rearLight;
 	
 	private float EngineRPM = 0.0f;
-	private float time = 0;
 	private float drag;
 	private float dowforce;
+	private float speed;
 	private bool wrecked = false;
+	private bool braking = false;
+	private bool brakeLightOn = false;
+	private CarControl control = new CarControl();
 	
+	public CarControl Control 
+	{ 
+		get { return control; } 
+	}
+
 	/*
 	 * motor:wheel
 	 * 1ª 3,596:1
@@ -43,7 +51,8 @@ public class Car : MonoBehaviour {
 		rigidbody.centerOfMass = cg.localPosition;
 	}
 	
-	private void DisableCar(){
+	private void DisableCar()
+	{
 		Accelerate(0);
 		RearLeftWheel.brakeTorque = 65;
 		RearRightWheel.brakeTorque = 65;
@@ -53,73 +62,84 @@ public class Car : MonoBehaviour {
 		windAudio.Stop();
 	}
 	
-	void Update () {
+	void Update () 
+	{
 		if(wrecked){
 			DisableCar();
 			return;
 		}
 		
-		time += Time.deltaTime;
+		speed = Vector3.Dot(rigidbody.velocity, transform.forward);
+		control.Speed = speed;
+		braking = false;
+		UpdateSteer();
 
 		EngineRPM = EngineRPMForGear(CurrentGear);
 		ShiftGears();
 		
 		float engineRpmAbs = Mathf.Abs(EngineRPM);
-	
 		engineAudio.pitch = Mathf.Min((engineRpmAbs / MaxEngineRPM) + 0.5f, 2.0f);
-		
 		windAudio.volume = rigidbody.velocity.magnitude/400;
-		
-		var verticalAxis = Input.GetAxis("Vertical");
-		
-		if(engineRpmAbs < MaxEngineRPM && verticalAxis >= 0) {
-			if(EngineRPM < 0)
-				Break(verticalAxis);
-			else
-				Accelerate(verticalAxis);
+
+		switch (control.Mode) {
+		case TransmissionMode.Drive:
+			Accelerate(control.Accelerator);
+			break;
+		case TransmissionMode.Reverse:
+			Accelerate(-control.Accelerator);
+			break;
+		case TransmissionMode.Neutral:
+			break;
 		}
 		
-		if(verticalAxis <= 0) {
-			if(EngineRPM > 0)
-				Break(-verticalAxis);
-			else
-				Accelerate(verticalAxis);
-		}
+		if (control.Brake > 0)
+			Brake(control.Brake);
 		
-		float v = rigidbody.velocity.magnitude/60f;
-		
-		var steerAngle = Mathf.Max(1f - v, 0.01f) * 26 * Input.GetAxis("Horizontal");
-		FrontLeftWheel.steerAngle = steerAngle;
-		FrontRightWheel.steerAngle = steerAngle;
+		UpdateBrakeLight();
 	}
 	
 	public void Wreck(){
 		wrecked = true;		
 	}
 	
-	void Accelerate(float verticalAxis) {
-		var motorTorque = EngineTorque * verticalAxis;
+	private void UpdateSteer()
+	{
+		FrontLeftWheel.steerAngle = control.Steer;
+		FrontRightWheel.steerAngle = control.Steer;
+	}
+
+	private void Accelerate(float accelerator) 
+	{
+		var motorTorque = EngineTorque * accelerator;
 		
 		RearLeftWheel.brakeTorque = 0;
 		RearRightWheel.brakeTorque = 0;
 		RearLeftWheel.motorTorque = motorTorque;
 		RearRightWheel.motorTorque = motorTorque;
-		
-		if(rearLight != null) {
-			rearLight.SetColor("_Color", new Color(0.1f, 0f, 0f));
-			//rearLight.SetFloat("_Shininess", 1f);
-		}
 	}
 	
-	void Break(float verticalAxis) {
-		var brakeTorque = EngineTorque * 10 * verticalAxis;
+	private void Brake(float brake) 
+	{
+		var brakeTorque = EngineTorque * 10 * brake;
 		
 		RearLeftWheel.brakeTorque = brakeTorque;
 		RearRightWheel.brakeTorque = brakeTorque;
 		
-		if(rearLight != null && brakeTorque > 0.5) {
+		if (brakeTorque > 0.5) {
+			braking = true;
+		}
+	}
+	
+	private void UpdateBrakeLight()
+	{
+		if(braking && !brakeLightOn) {
 			rearLight.SetColor("_Color", new Color(1f, 0f, 0f));
-			//rearLight.SetFloat("_Shininess", 0.01f);
+			brakeLightOn = true;
+		}
+		
+		if (!braking && brakeLightOn) {
+			rearLight.SetColor("_Color", new Color(0.1f, 0f, 0f));
+			brakeLightOn = false;
 		}
 	}
 
@@ -182,16 +202,42 @@ public class Car : MonoBehaviour {
 	}
 	
 	void OnGUI() {
-		GUI.Label(new Rect(10, 10, 100, 20), "KM/h: " + (rigidbody.velocity.magnitude * 3.6f));
+		GUI.Label(new Rect(10, 10, 100, 20), "KM/h: " + (speed * 3.6f));
 		GUI.Label(new Rect(10, 30, 200, 20), "steer: " + (FrontLeftWheel.steerAngle));
 		GUI.Label(new Rect(10, 50, 100, 20), "Gear: " + (CurrentGear + 1));
-		
 		GUI.Label(new Rect(10, 70, 100, 20), "RPM: " + RearLeftWheel.rpm);
 		GUI.Label(new Rect(10, 90, 100, 20), "RPM: " + RearRightWheel.rpm);
 		GUI.Label(new Rect(10, 110, 100, 20), "diff: " + (RearLeftWheel.rpm - RearRightWheel.rpm));
-		
-		GUI.Label(new Rect(10, 130, 100, 20), "time: " + time);
-		GUI.Label(new Rect(10, 150, 200, 20), "dowforce (Kg): " + (dowforce/9.8f));
+		GUI.Label(new Rect(10, 130, 200, 20), "dowforce (Kg): " + (dowforce/9.8f));
 	}
 	
 } 
+
+public enum TransmissionMode { Drive, Neutral, Reverse };
+
+public class CarControl
+{
+	private float steer = 0;
+	public float Steer 
+	{ 
+		get { return steer; }
+		set { steer = Mathf.Clamp(value, -40, 40); }
+	}
+	
+	private float brake = 0;
+	public float Brake 
+	{ 
+		get { return brake; }
+		set { brake = Mathf.Clamp(value, 0, 1); }
+	}
+	
+	private float accelerator = 0;
+	public float Accelerator
+	{ 
+		get { return accelerator; }
+		set { accelerator = Mathf.Clamp(value, 0, 1); }
+	}
+	
+	public float Speed { get; internal set; }
+	public TransmissionMode Mode { get; set; }
+}
