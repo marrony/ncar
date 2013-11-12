@@ -6,6 +6,9 @@ public class GameMaster : MonoBehaviour {
 	public SmoothFollow mainCamera;
 	public GameObject maverick;
 	public Checkpoint startLine;
+	public Waypoints waypoints;
+	
+	public GameObject sphere;
 	
 	public event OnLapChangeEventHandler OnLapChange = delegate {};
 	public event OnBestLapEventHandler OnBestLap = delegate {};
@@ -43,7 +46,9 @@ public class GameMaster : MonoBehaviour {
 			new Vector3(204, 2, 260), 
 			Quaternion.Euler(0, 230, 0)) as GameObject;
 		
-		car.AddComponent<IADriver>();
+		IADriver iaDriver = car.AddComponent<IADriver>();
+		iaDriver.waypoints = waypoints;
+		iaDriver.sphere = sphere;
 	}
 	
 	private void OnStartLineEnter (GameObject gameObject)
