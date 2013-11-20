@@ -19,8 +19,9 @@ public class Car : MonoBehaviour {
 		
 	public AudioSource engineAudio;
 	public AudioSource windAudio;
-	
-	public Material rearLight;
+
+	private GameObject turnLightRL;
+	private GameObject turnLightRR;
 	
 	private float EngineRPM = 0.0f;
 	private float drag;
@@ -46,9 +47,13 @@ public class Car : MonoBehaviour {
 	 * Diferencial 3,92:1
 	 */
 
-	void Start () {
+	void Start () 
+	{
 		Transform cg = transform.FindChild("CG");
 		rigidbody.centerOfMass = cg.localPosition;
+
+		turnLightRL = transform.Find("Model/maverick/RL_Turn_Light").gameObject;
+		turnLightRR = transform.Find("Model/maverick/RR_Turn_Light").gameObject;
 	}
 	
 	private void DisableCar()
@@ -133,12 +138,14 @@ public class Car : MonoBehaviour {
 	private void UpdateBrakeLight()
 	{
 		if(braking && !brakeLightOn) {
-			rearLight.SetColor("_Color", new Color(1f, 0f, 0f));
+			turnLightRL.renderer.materials[4].color = new Color(1f, 0f, 0f);
+			turnLightRR.renderer.materials[4].color = new Color(1f, 0f, 0f);
 			brakeLightOn = true;
 		}
 		
 		if (!braking && brakeLightOn) {
-			rearLight.SetColor("_Color", new Color(0.1f, 0f, 0f));
+			turnLightRL.renderer.materials[4].color = new Color(0.1f, 0f, 0f);
+			turnLightRR.renderer.materials[4].color = new Color(0.1f, 0f, 0f);
 			brakeLightOn = false;
 		}
 	}
