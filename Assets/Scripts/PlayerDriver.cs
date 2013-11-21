@@ -32,16 +32,16 @@ public class PlayerDriver : MonoBehaviour {
 		control.Accelerator = 0;
 		control.Brake = 0;
 		control.Mode = TransmissionMode.Neutral;
-		
-		if (control.Speed > 0) {
-			if (verticalAxis > 0) {
+
+		if (verticalAxis > 0) {
+			if (control.Speed > -1) {
 				control.Mode = TransmissionMode.Drive;
 				control.Accelerator = absVerticalAxis;
 			} else {
 				control.Brake = absVerticalAxis;
 			}
 		} else {
-			if (verticalAxis > 0) {
+			if (control.Speed > 1) {
 				control.Brake = absVerticalAxis;
 			} else {
 				control.Mode = TransmissionMode.Reverse;
