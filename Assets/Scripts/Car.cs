@@ -22,6 +22,7 @@ public class Car : MonoBehaviour {
 
 	private GameObject turnLightRL;
 	private GameObject turnLightRR;
+	private MachineGun machineGun;
 	
 	private float EngineRPM = 0.0f;
 	private float drag;
@@ -30,11 +31,11 @@ public class Car : MonoBehaviour {
 	private bool wrecked = false;
 	private bool braking = false;
 	private bool brakeLightOn = false;
-	private CarControl control = new CarControl();
-	
-	public CarControl Control 
-	{ 
-		get { return control; } 
+
+	public CarControl Control { get; private set; }
+	public MachineGunControl MachineGunControl 
+	{
+		get { return machineGun.Control; } 
 	}
 
 	/*
@@ -54,6 +55,8 @@ public class Car : MonoBehaviour {
 
 		turnLightRL = transform.Find("Model/maverick/RL_Turn_Light").gameObject;
 		turnLightRR = transform.Find("Model/maverick/RR_Turn_Light").gameObject;
+		machineGun = transform.Find("MachineGun").GetComponent<MachineGun>();
+		Control = new CarControl();
 	}
 	
 	private void DisableCar()
@@ -75,7 +78,7 @@ public class Car : MonoBehaviour {
 		}
 		
 		speed = Vector3.Dot(rigidbody.velocity, transform.forward);
-		control.Speed = speed;
+		Control.Speed = speed;
 		braking = false;
 		UpdateSteer();
 
@@ -86,31 +89,33 @@ public class Car : MonoBehaviour {
 		engineAudio.pitch = Mathf.Min((engineRpmAbs / MaxEngineRPM) + 0.5f, 2.0f);
 		windAudio.volume = rigidbody.velocity.magnitude/400;
 
-		switch (control.Mode) {
+		switch (Control.Mode) {
 		case TransmissionMode.Drive:
-			Accelerate(control.Accelerator);
+			Accelerate(Control.Accelerator);
 			break;
 		case TransmissionMode.Reverse:
-			Accelerate(-control.Accelerator);
+			Accelerate(-Control.Accelerator);
 			break;
 		case TransmissionMode.Neutral:
 			break;
 		}
 		
-		if (control.Brake > 0)
-			Brake(control.Brake);
+		if (Control.Brake > 0)
+			Brake(Control.Brake);
 		
 		UpdateBrakeLight();
 	}
 	
-	public void Wreck(){
-		wrecked = true;		
+	public void Wreck()
+	{
+		wrecked = true;
+		machineGun.Wreck();
 	}
 	
 	private void UpdateSteer()
 	{
-		FrontLeftWheel.steerAngle = control.Steer;
-		FrontRightWheel.steerAngle = control.Steer;
+		FrontLeftWheel.steerAngle = Control.Steer;
+		FrontRightWheel.steerAngle = Control.Steer;
 	}
 
 	private void Accelerate(float accelerator) 

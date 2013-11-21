@@ -3,25 +3,29 @@ using System.Collections;
 
 public class PlayerDriver : MonoBehaviour {
 
-	private CarControl control;
+	private CarControl carControl;
+	private MachineGunControl machineGunControl;
 
 	void Start () 
 	{
-		control = GetComponent<Car>().Control;
+		Car car = GetComponent<Car>();
+		carControl = car.Control;
+		machineGunControl = car.MachineGunControl;
 	}
 
 	void Update () 
 	{
 		UpdateSteer ();
 		UpdateAcceleratorAndBrake ();
+		UpdateWeapons ();
 	}
 
 	private void UpdateSteer ()
 	{
-		float v = control.Speed/60f;
+		float v = carControl.Speed/60f;
 		float steerAngle = Mathf.Max(1f - v, 0.01f) * 26 * Input.GetAxis("Horizontal");
 		
-		control.Steer = steerAngle;
+		carControl.Steer = steerAngle;
 	}
 
 	private void UpdateAcceleratorAndBrake ()
@@ -29,24 +33,29 @@ public class PlayerDriver : MonoBehaviour {
 		float verticalAxis = Input.GetAxis("Vertical");
 		float absVerticalAxis = Mathf.Abs(verticalAxis);
 		
-		control.Accelerator = 0;
-		control.Brake = 0;
-		control.Mode = TransmissionMode.Neutral;
+		carControl.Accelerator = 0;
+		carControl.Brake = 0;
+		carControl.Mode = TransmissionMode.Neutral;
 
 		if (verticalAxis > 0) {
-			if (control.Speed > -1) {
-				control.Mode = TransmissionMode.Drive;
-				control.Accelerator = absVerticalAxis;
+			if (carControl.Speed > -1) {
+				carControl.Mode = TransmissionMode.Drive;
+				carControl.Accelerator = absVerticalAxis;
 			} else {
-				control.Brake = absVerticalAxis;
+				carControl.Brake = absVerticalAxis;
 			}
 		} else {
-			if (control.Speed > 1) {
-				control.Brake = absVerticalAxis;
+			if (carControl.Speed > 1) {
+				carControl.Brake = absVerticalAxis;
 			} else {
-				control.Mode = TransmissionMode.Reverse;
-				control.Accelerator = absVerticalAxis;
+				carControl.Mode = TransmissionMode.Reverse;
+				carControl.Accelerator = absVerticalAxis;
 			}
 		}
+	}
+
+	void UpdateWeapons ()
+	{
+		machineGunControl.Shooting = Input.GetKey(KeyCode.Space);
 	}
 }
