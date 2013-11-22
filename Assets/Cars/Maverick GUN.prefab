@@ -2032,7 +2032,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100128}
   m_LocalRotation: {x: 0, y: .929229379, z: 0, w: -.369503528}
-  m_LocalPosition: {x: 185.562027, y: 1.36139679, z: 247.279877}
+  m_LocalPosition: {x: 173.037231, y: 1.18717146, z: 231.091309}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400150}
@@ -3767,7 +3767,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireOrigin: {fileID: 400150}
   bullet: {fileID: 100000, guid: 58c8021fa1477ee4d8338148f1881a22, type: 2}
-  rateOfFire: .400000006
+  rateOfFire: .200000003
   particles: {fileID: 19800000}
   soundFX: {fileID: 8200000, guid: 033d465c728d62c4ca78dd0324118242, type: 2}
 --- !u!146 &14600000
