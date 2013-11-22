@@ -56,6 +56,6 @@ public class PlayerDriver : MonoBehaviour {
 
 	void UpdateWeapons ()
 	{
-		machineGunControl.Shooting = Input.GetKey(KeyCode.Space);
+		machineGunControl.Shooting = Input.GetKey(KeyCode.Z);
 	}
 }
