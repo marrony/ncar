@@ -3,14 +3,11 @@ using System.Collections;
 
 public class PlayerDriver : MonoBehaviour {
 
-	private CarControl carControl;
-	private MachineGunControl machineGunControl;
+	private Car car;
 
 	void Start () 
 	{
-		Car car = GetComponent<Car>();
-		carControl = car.Control;
-		machineGunControl = car.MachineGunControl;
+		car = GetComponent<Car>();
 	}
 
 	void Update () 
@@ -22,14 +19,15 @@ public class PlayerDriver : MonoBehaviour {
 
 	private void UpdateSteer ()
 	{
-		float v = carControl.Speed/60f;
+		float v = car.Control.Speed/60f;
 		float steerAngle = Mathf.Max(1f - v, 0.01f) * 26 * Input.GetAxis("Horizontal");
 		
-		carControl.Steer = steerAngle;
+		car.Control.Steer = steerAngle;
 	}
 
 	private void UpdateAcceleratorAndBrake ()
 	{
+		CarControl carControl = car.Control;
 		float verticalAxis = Input.GetAxis("Vertical");
 		float absVerticalAxis = Mathf.Abs(verticalAxis);
 		
@@ -56,6 +54,6 @@ public class PlayerDriver : MonoBehaviour {
 
 	void UpdateWeapons ()
 	{
-		machineGunControl.Shooting = Input.GetKey(KeyCode.Space);
+		car.MachineGunControl.Shooting = Input.GetKey(KeyCode.Space);
 	}
 }
