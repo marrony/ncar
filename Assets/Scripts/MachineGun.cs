@@ -4,7 +4,7 @@ using System.Collections;
 public class MachineGun : MonoBehaviour 
 {
 	public Transform fireOrigin;
-	public BulletControl bullet;
+	public GameObject bullet;
 	public float rateOfFire;
 	public ParticleSystem particles;
 	public AudioSource soundFX;
@@ -27,20 +27,13 @@ public class MachineGun : MonoBehaviour
 		currentTime += Time.deltaTime;
 		
 		if(currentTime >= rateOfFire && Control.Shooting) {
-			BulletControl newBullet = Instantiate(bullet, fireOrigin.position, fireOrigin.rotation) as BulletControl;
-			newBullet.shooter = findRootGameObject(gameObject);
-						
+			Instantiate(bullet, fireOrigin.position, fireOrigin.rotation);						
+			
 			StartParticles();
 			StartSound();
 			
 			currentTime = 0;			
 		}
-	}
-
-	private GameObject findRootGameObject(GameObject obj){				
-		if(obj.transform.parent != null)
-			return findRootGameObject(obj.transform.parent.gameObject);
-		return obj;
 	}
 	
 	public void Wreck()
