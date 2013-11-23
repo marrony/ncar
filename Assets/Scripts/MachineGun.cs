@@ -3,12 +3,12 @@ using System.Collections;
 
 public class MachineGun : MonoBehaviour 
 {
-	public Transform fireOrigin;
 	public GameObject bullet;
 	public float rateOfFire;
 	public ParticleSystem particles;
 	public AudioSource soundFX;
 
+	private Transform fireOrigin;
 	private float currentTime = 0;
 	private bool wrecked = false;
 
@@ -17,6 +17,7 @@ public class MachineGun : MonoBehaviour
 	void Start()
 	{
 		Control = new MachineGunControl();
+		fireOrigin = transform.Find("FireOrigin");
 	}
 		
 	void Update () 
