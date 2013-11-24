@@ -20,6 +20,8 @@ public class Car : MonoBehaviour {
 	public AudioSource engineAudio;
 	public AudioSource windAudio;
 
+	public bool Debug { get; set; }
+
 	private GameObject turnLightRL;
 	private GameObject turnLightRR;
 	private MachineGun machineGun;
@@ -213,16 +215,22 @@ public class Car : MonoBehaviour {
 		return 0.5f * wingArea * angleOfAttack * airDensity * v*v;
 	}
 	
-	void OnGUI() {
-		GUI.Label(new Rect(10, 10, 100, 20), "KM/h: " + (speed * 3.6f));
-		GUI.Label(new Rect(10, 30, 200, 20), "steer: " + (FrontLeftWheel.steerAngle));
-		GUI.Label(new Rect(10, 50, 100, 20), "Gear: " + (CurrentGear + 1));
-		GUI.Label(new Rect(10, 70, 100, 20), "RPM: " + RearLeftWheel.rpm);
-		GUI.Label(new Rect(10, 90, 100, 20), "RPM: " + RearRightWheel.rpm);
-		GUI.Label(new Rect(10, 110, 100, 20), "diff: " + (RearLeftWheel.rpm - RearRightWheel.rpm));
-		GUI.Label(new Rect(10, 130, 200, 20), "dowforce (Kg): " + (dowforce/9.8f));
+	void OnGUI() 
+	{
+		if (Debug)
+			ShowDebugInfo ();
 	}
 	
+	private void ShowDebugInfo ()
+	{
+		GUI.Label (new Rect (10, 10, 100, 20), "KM/h: " + (speed * 3.6f));
+		GUI.Label (new Rect (10, 30, 200, 20), "steer: " + (FrontLeftWheel.steerAngle));
+		GUI.Label (new Rect (10, 50, 100, 20), "Gear: " + (CurrentGear + 1));
+		GUI.Label (new Rect (10, 70, 100, 20), "RPM: " + RearLeftWheel.rpm);
+		GUI.Label (new Rect (10, 90, 100, 20), "RPM: " + RearRightWheel.rpm);
+		GUI.Label (new Rect (10, 110, 100, 20), "diff: " + (RearLeftWheel.rpm - RearRightWheel.rpm));
+		GUI.Label (new Rect (10, 130, 200, 20), "dowforce (Kg): " + (dowforce / 9.8f));
+	}
 } 
 
 public enum TransmissionMode { Drive, Neutral, Reverse };

@@ -33,11 +33,14 @@ public class GameMaster : MonoBehaviour {
 			Quaternion.Euler(0, 230, 0)) as GameObject;
 		
 		playerCar.AddComponent<PlayerDriver>();
-		
+
 		mainCamera.target = playerCar.transform;
 		
 		startLine.WaitFor(playerCar);
 		startLine.OnCheckpointEnter += OnStartLineEnter;
+
+		Car car = playerCar.GetComponent<Car>();
+		car.Debug = true;
 	}
 	
 	private void CreateIACars ()
