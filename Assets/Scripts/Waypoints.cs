@@ -16,13 +16,18 @@ public class Waypoints : MonoBehaviour {
 	}
 	
 	void OnDrawGizmos() {
+		if(next.Length == 0)
+			return;
+
 		//Gizmos.matrix = transform.localToWorldMatrix;
 		
 		Gizmos.color = new Color(1, 0, 0, .5f);
 		Gizmos.DrawWireCube(transform.position, Vector3.one);
 		
 		foreach(Waypoints ways in next) {
-			Gizmos.DrawLine(transform.position, ways.transform.position);
+			if(ways) {
+				Gizmos.DrawLine(transform.position, ways.transform.position);
+			}
 		}
 	}
 }

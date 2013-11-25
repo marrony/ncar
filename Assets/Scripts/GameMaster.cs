@@ -51,6 +51,7 @@ public class GameMaster : MonoBehaviour {
 		
 		IADriver iaDriver = car.AddComponent<IADriver>();
 		iaDriver.waypoints = waypoints;
+		iaDriver.playerCar = playerCar;
 		iaDriver.sphere = sphere;
 	}
 	
