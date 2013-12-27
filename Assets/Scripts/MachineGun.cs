@@ -50,7 +50,8 @@ public class MachineGun : MonoBehaviour
 	
 	private void StartSound()
 	{
-		AudioSource fireSound = Instantiate(soundFX) as AudioSource;			
+		AudioSource fireSound = Instantiate(soundFX, fireOrigin.position, fireOrigin.rotation) as AudioSource;			
+		fireSound.transform.position = fireOrigin.position;
 		fireSound.Play();
 	}
 }

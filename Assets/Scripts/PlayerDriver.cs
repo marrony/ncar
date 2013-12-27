@@ -8,6 +8,7 @@ public class PlayerDriver : MonoBehaviour {
 	void Start () 
 	{
 		car = GetComponent<Car>();
+		car.gameObject.AddComponent("AudioListener");
 	}
 
 	void Update () 

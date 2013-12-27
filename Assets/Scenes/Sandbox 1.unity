@@ -2140,7 +2140,6 @@ GameObject:
   - 20: {fileID: 1041333935}
   - 124: {fileID: 1041333934}
   - 92: {fileID: 1041333933}
-  - 81: {fileID: 1041333932}
   - 114: {fileID: 1041333937}
   m_Layer: 0
   m_Name: Camera
@@ -2149,13 +2148,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1041333932
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1041333931}
-  m_Enabled: 1
 --- !u!92 &1041333933
 Behaviour:
   m_ObjectHideFlags: 0
@@ -3916,7 +3908,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 1041333937}
-  maverick: {fileID: 100128, guid: 900c005d6c6a0134ab897f6bd994f565, type: 2}
+  maverick: {fileID: 100026, guid: 9f6d2604e18b1bf479fd9b1196432ce9, type: 2}
   startLine: {fileID: 11427969}
   waypoints: {fileID: 1071270024}
   sphere: {fileID: 500744733}
