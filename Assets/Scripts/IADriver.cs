@@ -38,7 +38,7 @@ public class IADriver : MonoBehaviour
 
 		if(angleFromWaypoint >= 0 && angleFromWaypoint <= 180) {
 			control.Mode = TransmissionMode.Drive;
-			control.Accelerator = 0.7f;
+			control.Accelerator = Mathf.Sin(angleFromWaypoint * Mathf.Deg2Rad) * 0.9f;
 		} else {
 			control.Steer = -control.Steer;
 			control.Mode = TransmissionMode.Reverse;
