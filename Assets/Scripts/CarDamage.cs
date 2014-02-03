@@ -4,26 +4,33 @@ using System.Collections;
 public class CarDamage : MonoBehaviour 
 {
 	public float health;
-	public ParticleSystem particles;
+	public ParticleSystem wreckParticles;
+	public ParticleSystem damageParticles;
 
+	private float maxHealth;
 	private Car car;
 
 	void Start() 
 	{
 		car = GetComponent<Car>();
+		maxHealth = health;
+		damageParticles.maxParticles = 0;
+		damageParticles.Play();
 	}
 	
 	void Update()
 	{
-		if(health > 0 || particles.isPlaying)
+		if(health > 0 || wreckParticles.isPlaying)
 			return;		
-		
-		particles.Play();
+
+		damageParticles.Stop();
+		wreckParticles.Play();
 		car.Wreck();
 	}
 	
 	public void Inflict(float damage)
 	{
 		health -= damage;		
+		damageParticles.maxParticles = (int) (10 * (1 - health / maxHealth));		
 	}
 }
