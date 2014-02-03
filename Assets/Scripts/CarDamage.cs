@@ -31,6 +31,6 @@ public class CarDamage : MonoBehaviour
 	public void Inflict(float damage)
 	{
 		health -= damage;		
-		damageParticles.maxParticles = (int) (10 * (1 - health / maxHealth));		
+		damageParticles.maxParticles = Mathf.Max((int) (10 * (1 - health / (maxHealth / 2))), 0);
 	}
 }
