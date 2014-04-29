@@ -22,8 +22,8 @@ public class Car : MonoBehaviour {
 
 	public bool Debug { get; set; }
 
-	private GameObject turnLightRL;
-	private GameObject turnLightRR;
+	public GameObject turnLightRL;
+	public GameObject turnLightRR;
 	private MachineGun machineGun;
 	
 	private float EngineRPM = 0.0f;
@@ -55,8 +55,8 @@ public class Car : MonoBehaviour {
 		Transform cg = transform.FindChild("CG");
 		rigidbody.centerOfMass = cg.localPosition;
 
-		turnLightRL = transform.Find("Model/maverick/RL_Turn_Light").gameObject;
-		turnLightRR = transform.Find("Model/maverick/RR_Turn_Light").gameObject;
+		/*turnLightRL = transform.Find("Model/maverick/RL_Turn_Light").gameObject;
+		turnLightRR = transform.Find("Model/maverick/RR_Turn_Light").gameObject;*/
 		machineGun = transform.Find("MachineGun").GetComponent<MachineGun>();
 		Control = new CarControl();
 	}
@@ -86,9 +86,8 @@ public class Car : MonoBehaviour {
 
 		EngineRPM = EngineRPMForGear(CurrentGear);
 		ShiftGears();
-		
 		float engineRpmAbs = Mathf.Abs(EngineRPM);
-		engineAudio.pitch = Mathf.Min((engineRpmAbs / MaxEngineRPM) + 0.5f, 2.0f);
+		engineAudio.pitch = Mathf.Min(engineRpmAbs / MaxEngineRPM + MinEngineRPM / MaxEngineRPM, 2.0f);
 		windAudio.volume = rigidbody.velocity.magnitude/400;
 
 		switch (Control.Mode) {
@@ -145,14 +144,14 @@ public class Car : MonoBehaviour {
 	private void UpdateBrakeLight()
 	{
 		if(braking && !brakeLightOn) {
-			turnLightRL.renderer.materials[4].color = new Color(1f, 0f, 0f);
-			turnLightRR.renderer.materials[4].color = new Color(1f, 0f, 0f);
+			turnLightRL.GetComponent<Light>().enabled = true;
+			turnLightRR.GetComponent<Light>().enabled = true;
 			brakeLightOn = true;
 		}
 		
 		if (!braking && brakeLightOn) {
-			turnLightRL.renderer.materials[4].color = new Color(0.1f, 0f, 0f);
-			turnLightRR.renderer.materials[4].color = new Color(0.1f, 0f, 0f);
+			turnLightRL.GetComponent<Light>().enabled = false;
+			turnLightRR.GetComponent<Light>().enabled = false;
 			brakeLightOn = false;
 		}
 	}
