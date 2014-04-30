@@ -3908,7 +3908,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 1041333937}
-  maverick: {fileID: 100014, guid: 9025779226b8ede4d91e6b309317be96, type: 2}
+  maverick: {fileID: 100024, guid: 9025779226b8ede4d91e6b309317be96, type: 2}
   startLine: {fileID: 11427969}
   waypoints: {fileID: 1071270024}
   sphere: {fileID: 500744733}

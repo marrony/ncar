@@ -144,14 +144,14 @@ public class Car : MonoBehaviour {
 	private void UpdateBrakeLight()
 	{
 		if(braking && !brakeLightOn) {
-			turnLightRL.GetComponent<Light>().enabled = true;
-			turnLightRR.GetComponent<Light>().enabled = true;
+			turnLightRL.SetActive(true);
+			turnLightRR.SetActive(true);
 			brakeLightOn = true;
 		}
 		
 		if (!braking && brakeLightOn) {
-			turnLightRL.GetComponent<Light>().enabled = false;
-			turnLightRR.GetComponent<Light>().enabled = false;
+			turnLightRL.SetActive(false);
+            turnLightRR.SetActive(false);
 			brakeLightOn = false;
 		}
 	}
