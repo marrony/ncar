@@ -22,7 +22,7 @@ public class MachineGun : MonoBehaviour
 		
 	void Update () 
 	{
-		if(wrecked)
+		if(wrecked || bullet == null || fireOrigin == null)
 			return; 
 		
 		currentTime += Time.deltaTime;

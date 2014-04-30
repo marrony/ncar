@@ -36,14 +36,19 @@ public class IADriver : MonoBehaviour
 
 		float angleFromWaypoint = AngleFrom(waypointPosition);
 
+		float distanceToWaypoint = Vector3.Distance(carPosition, waypointPosition);
+
 		if(angleFromWaypoint >= 0 && angleFromWaypoint <= 180) {
 			control.Mode = TransmissionMode.Drive;
-			control.Accelerator = Mathf.Sin(angleFromWaypoint * Mathf.Deg2Rad) * 0.9f;
+			control.Accelerator = Mathf.Sin(angleFromWaypoint * Mathf.Deg2Rad) * (distanceToWaypoint > 25 ? .94f : .9f);
+			control.Brake = 0;
 		} else {
 			control.Steer = -control.Steer;
 			control.Mode = TransmissionMode.Reverse;
 			control.Accelerator = 1.0f;
+			control.Brake = 0;
 		}
+		print (control.Accelerator);
 	}
 
 	private float AngleFrom(Vector3 position)

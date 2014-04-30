@@ -3953,7 +3953,7 @@ MonoBehaviour:
   ReverseGearRatio: 4.22900009
   DifferentialRatio: 3.92000008
   CurrentGear: 0
-  EngineTorque: 90
+  EngineTorque: 95
   MaxEngineRPM: 7500
   MinEngineRPM: 2200
   engineAudio: {fileID: 8200002}
