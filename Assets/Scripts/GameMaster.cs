@@ -28,9 +28,13 @@ public class GameMaster : MonoBehaviour {
 
 	private void CreatePlayerCar ()
 	{
+		Vector3 startingPosition = new Vector3(startLine.transform.position.x, startLine.transform.position.y, startLine.transform.position.z);
+		startingPosition.x += 5;
+		startingPosition.y -= 5;
+
 		playerCar = Instantiate(maverick, 
-			new Vector3(200, 2, 260), 
-			Quaternion.Euler(0, 230, 0)) as GameObject;
+        	startingPosition, 
+			startLine.transform.rotation) as GameObject;
 		
 		playerCar.AddComponent<PlayerDriver>();
 
@@ -45,9 +49,14 @@ public class GameMaster : MonoBehaviour {
 	
 	private void CreateIACars ()
 	{
+		Vector3 startingPosition = new Vector3(startLine.transform.position.x, startLine.transform.position.y, startLine.transform.position.z);
+		startingPosition.z += 5;
+		startingPosition.y -= 5;
+		startingPosition.x += 6;
+
 		GameObject car = Instantiate(maverick, 
-			new Vector3(204, 2, 260), 
-			Quaternion.Euler(0, 230, 0)) as GameObject;
+             startingPosition, 
+            startLine.transform.rotation) as GameObject;
 		
 		IADriver iaDriver = car.AddComponent<IADriver>();
 		iaDriver.waypoints = waypoints;
