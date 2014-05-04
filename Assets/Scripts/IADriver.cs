@@ -48,7 +48,6 @@ public class IADriver : MonoBehaviour
 			control.Accelerator = 1.0f;
 			control.Brake = 0;
 		}
-		print (control.Accelerator);
 	}
 
 	private float AngleFrom(Vector3 position)
