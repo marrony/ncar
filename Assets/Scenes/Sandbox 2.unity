@@ -1279,7 +1279,7 @@ MonoBehaviour:
   maverick: {fileID: 100164, guid: 9f6d2604e18b1bf479fd9b1196432ce9, type: 2}
   startLine: {fileID: 850420086}
   waypoints: {fileID: 1027600393}
-  sphere: {fileID: 100000, guid: bddd308500bc0654cb7b53149b751930, type: 2}
+  sphere: {fileID: 0}
 --- !u!1 &976368467
 GameObject:
   m_ObjectHideFlags: 0

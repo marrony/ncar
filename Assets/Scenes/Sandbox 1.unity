@@ -2939,7 +2939,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1227784164}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.98577881, y: 0, z: -198.864594}
+  m_LocalPosition: {x: 5.08973694, y: 0, z: -200.73175}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 916312157}
@@ -4000,7 +4000,7 @@ MonoBehaviour:
   maverick: {fileID: 100024, guid: 9025779226b8ede4d91e6b309317be96, type: 2}
   startLine: {fileID: 11427969}
   waypoints: {fileID: 1071270024}
-  sphere: {fileID: 710867914}
+  sphere: {fileID: 0}
 --- !u!4 &1765700290
 Transform:
   m_ObjectHideFlags: 0

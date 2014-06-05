@@ -28,8 +28,9 @@ public class IADriver : MonoBehaviour
 		Vector3 directionToWaypoint = waypointPosition - carPosition;
 		
 		control.Steer = Vector3.Dot(car.transform.right, directionToWaypoint.normalized) * 40f;
-		
-		sphere.transform.position = waypointPosition;
+
+		if(sphere != null)
+			sphere.transform.position = waypointPosition;
 
 		float angleFromPlayer = AngleFrom(playerCar.transform.position);
 		machineGunControl.Shooting = (angleFromPlayer >= 80f && angleFromPlayer <= 90f);

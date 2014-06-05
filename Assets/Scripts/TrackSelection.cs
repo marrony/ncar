@@ -33,6 +33,6 @@ public class TrackSelection : MonoBehaviour {
 			targetIdx += targetIdx < positions.Length - 1 ? 1 : 0;		
 		
 		if(Input.GetKeyDown(KeyCode.Return))
-			FadeEffect.LoadLevel(1,1,1);
+			FadeEffect.LoadLevel(1,.5f,1f);
 	}
 }

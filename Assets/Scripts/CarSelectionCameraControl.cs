@@ -47,6 +47,6 @@ public class CarSelectionCameraControl : MonoBehaviour {
 			targetIdx += targetIdx < objects.Length - 1 ? 1 : 0;		
 
 		if(Input.GetKeyDown(KeyCode.Return) && targetIdx != 1)
-			FadeEffect.LoadLevel(TrackSelection.targetIdx + 2,1,1);
+			FadeEffect.LoadLevel(TrackSelection.targetIdx + 2,.5f,1);
 	}
 }
