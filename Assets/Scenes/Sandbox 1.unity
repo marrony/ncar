@@ -3994,7 +3994,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 1041333937}
   carsAvailable:
-  - {fileID: 100164, guid: 9f6d2604e18b1bf479fd9b1196432ce9, type: 2}
+  - {fileID: 100024, guid: 9025779226b8ede4d91e6b309317be96, type: 2}
   - {fileID: 0}
   - {fileID: 100164, guid: 9f6d2604e18b1bf479fd9b1196432ce9, type: 2}
   maverick: {fileID: 100024, guid: 9025779226b8ede4d91e6b309317be96, type: 2}
