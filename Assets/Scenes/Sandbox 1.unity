@@ -1572,6 +1572,46 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 916312157}
+--- !u!1001 &787414258
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 400000, guid: dc6da51fedd49ec4ab541ebe80b5553d, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: dc6da51fedd49ec4ab541ebe80b5553d, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: dc6da51fedd49ec4ab541ebe80b5553d, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: dc6da51fedd49ec4ab541ebe80b5553d, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: dc6da51fedd49ec4ab541ebe80b5553d, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: dc6da51fedd49ec4ab541ebe80b5553d, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: dc6da51fedd49ec4ab541ebe80b5553d, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: dc6da51fedd49ec4ab541ebe80b5553d, type: 2}
+  m_RootGameObject: {fileID: 1132115981}
+  m_IsPrefabParent: 0
+  m_IsExploded: 1
 --- !u!1 &793550494
 GameObject:
   m_ObjectHideFlags: 0
@@ -2427,8 +2467,8 @@ Prefab:
 --- !u!1 &1132115981
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabParentObject: {fileID: 100000, guid: dc6da51fedd49ec4ab541ebe80b5553d, type: 2}
+  m_PrefabInternal: {fileID: 787414258}
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1132115984}
@@ -2445,8 +2485,9 @@ GameObject:
 --- !u!154 &1132115982
 TerrainCollider:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabParentObject: {fileID: 15400000, guid: dc6da51fedd49ec4ab541ebe80b5553d,
+    type: 2}
+  m_PrefabInternal: {fileID: 787414258}
   m_GameObject: {fileID: 1132115981}
   m_IsTrigger: 0
   m_Enabled: 1
@@ -2455,8 +2496,9 @@ TerrainCollider:
 --- !u!114 &1132115983
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabParentObject: {fileID: 11400000, guid: dc6da51fedd49ec4ab541ebe80b5553d,
+    type: 2}
+  m_PrefabInternal: {fileID: 787414258}
   m_GameObject: {fileID: 1132115981}
   m_Enabled: 1
   m_EditorHideFlags: 1
@@ -2481,8 +2523,8 @@ MonoBehaviour:
 --- !u!4 &1132115984
 Transform:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabParentObject: {fileID: 400000, guid: dc6da51fedd49ec4ab541ebe80b5553d, type: 2}
+  m_PrefabInternal: {fileID: 787414258}
   m_GameObject: {fileID: 1132115981}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -2492,8 +2534,9 @@ Transform:
 --- !u!114 &1132115985
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabParentObject: {fileID: 11400002, guid: dc6da51fedd49ec4ab541ebe80b5553d,
+    type: 2}
+  m_PrefabInternal: {fileID: 787414258}
   m_GameObject: {fileID: 1132115981}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -3950,6 +3993,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 1041333937}
+  carsAvailable:
+  - {fileID: 100164, guid: 9f6d2604e18b1bf479fd9b1196432ce9, type: 2}
+  - {fileID: 0}
+  - {fileID: 100164, guid: 9f6d2604e18b1bf479fd9b1196432ce9, type: 2}
   maverick: {fileID: 100024, guid: 9025779226b8ede4d91e6b309317be96, type: 2}
   startLine: {fileID: 11427969}
   waypoints: {fileID: 1071270024}

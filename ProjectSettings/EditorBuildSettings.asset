@@ -6,4 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/TrackSelection.unity
+  - enabled: 1
+    path: Assets/Scenes/CarSelection.unity
+  - enabled: 1
     path: Assets/Scenes/Sandbox 1.unity
+  - enabled: 1
+    path: Assets/Scenes/Sandbox 2.unity

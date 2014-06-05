@@ -4,12 +4,13 @@ using System.Collections;
 public class GameMaster : MonoBehaviour {
 	
 	public SmoothFollow mainCamera;
+	public GameObject[] carsAvailable; //improve this reference... not a good idea to keep all cars reference 
 	public GameObject maverick;
 	public Checkpoint startLine;
 	public Waypoints waypoints;
 	
 	public GameObject sphere;
-	
+
 	public event OnLapChangeEventHandler OnLapChange = delegate {};
 	public event OnBestLapEventHandler OnBestLap = delegate {};
 	public event OnRaceFinishesEventHandler OnRaceFinishes = delegate {};
@@ -20,8 +21,8 @@ public class GameMaster : MonoBehaviour {
 	private float lapBegin = 0;
 	private float bestLap = float.PositiveInfinity;
 
-	void Start () 
-	{
+	void Start() {
+		maverick = carsAvailable[CarSelectionCameraControl.targetIdx];
 		CreatePlayerCar();
 		CreateIACars();
 	}
@@ -96,6 +97,11 @@ public class GameMaster : MonoBehaviour {
 	{
 		RaceResult result = new RaceResult(1);
 		OnRaceFinishes(result);
+	}
+
+	private void Update(){
+		if(Input.GetKeyDown(KeyCode.Escape))
+			FadeEffect.LoadLevel(0,1,1);
 	}
 }
 
