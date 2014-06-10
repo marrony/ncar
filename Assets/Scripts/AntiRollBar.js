@@ -8,6 +8,9 @@ function FixedUpdate ()
     var travelL = 1.0; 
     var travelR = 1.0;
 
+	var wheelLPosition = WheelL.transform.position + WheelL.transform.rotation * WheelL.center;
+	var wheelRPosition = WheelR.transform.position + WheelR.transform.rotation * WheelR.center;
+	
     var groundedL = WheelL.GetGroundHit(hit);   
     if (groundedL) 
         travelL = (-WheelL.transform.InverseTransformPoint(hit.point).y - WheelL.radius) 
@@ -24,10 +27,17 @@ function FixedUpdate ()
 		return;	
 			
     if (groundedL)
-    	rigidbody.AddForceAtPosition(WheelL.transform.up * -antiRollForce, WheelL.transform.position); 	
+    	rigidbody.AddForceAtPosition(WheelL.transform.up * -antiRollForce, wheelLPosition); 	
     
     if (groundedR)
-        rigidbody.AddForceAtPosition(WheelR.transform.up * antiRollForce, WheelR.transform.position);     
+        rigidbody.AddForceAtPosition(WheelR.transform.up * antiRollForce, wheelRPosition);     
+		
+	DebugWheel(wheelLPosition, Mathf.Abs(antiRollForce));
+    DebugWheel(wheelRPosition, Mathf.Abs(antiRollForce));
+}
+
+function DebugWheel(ntransform, force) 	{		
+	Debug.DrawLine(ntransform, ntransform + new Vector3(0, force * .1f, 0), Color.red);
 }
 
 function rayCastWillNotHitGround(transformToCheck){
